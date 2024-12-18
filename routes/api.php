@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
+//Users
+Route::prefix('users')->group(function () {
+    Route::get('users', '\App\Http\Controllers\UserIndexController@index')->name('user.index');
 });
