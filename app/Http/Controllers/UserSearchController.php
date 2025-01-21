@@ -10,7 +10,11 @@ class UserSearchController extends Controller
 {
     public function search(UserSearchRequest $userSearchRequest)
     {
-        $user = User::search($userSearchRequest->search)->paginate(10);
-        return UserResource::collection($user);
+        $users = User::search($userSearchRequest->search)
+            ->query(function ($query) {
+                $query->whereNull('deleted_at');
+            })
+            ->paginate(10);
+        return UserResource::collection($users);
     }
 }

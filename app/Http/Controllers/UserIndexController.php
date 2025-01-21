@@ -10,6 +10,6 @@ class UserIndexController extends Controller
 {
     public function index()
     {
-        return UserResource::collection(User::orderBy('id', 'DESC')->paginate(10));
+        return UserResource::collection(User::whereNull('deleted_at')->orderBy('id', 'DESC')->paginate(10));
     }
 }
