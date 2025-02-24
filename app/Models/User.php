@@ -8,19 +8,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class User extends Model
 {
-    use HasFactory;
-    use Searchable;
-
-    public $timestamps = false;
-
-    public function toSearchableArray()
-    {
-        return [
-            'name' => $this->name,
-            'identification' => $this->identification,
-            'phone' => $this->phone,
-        ];
-    }
+    protected $fillable = [
+        'name',
+    ];
 
     public function rol()
     {
