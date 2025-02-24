@@ -15,21 +15,24 @@ class CollectorResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'user' => [
-                'id' => $this->user->id,
-                'name' => $this->user->name,
-                'phone' => $this->user->phone,
-                'identification' => $this->user->identification,
-                'type_identification' => [
-                    'id' => $this->user->typeIdentification->id,
-                    'name' => $this->user->typeIdentification->name,
+            'collector' => [
+                'id' => $this->id,
+                'user' => [
+                    'id' => $this->user->id,
+                    'name' => $this->user->name,
+                    'phone' => $this->user->phone,
+                    'identification' => $this->user->identification,
+                    'type_identification' => [
+                        'id' => $this->user->typeIdentification->id,
+                        'name' => $this->user->typeIdentification->name,
+                    ],
+                    'rol' => [
+                        'id' => $this->user->rol->id,
+                        'name' => $this->user->rol->name,
+                    ],
+                    'email' => $this->user->email,
+                    'image' => $this->user->image,
                 ],
-                'rol' => [
-                    'id' => $this->user->rol->id,
-                    'name' => $this->user->rol->name,
-                ],
-                'email' => $this->user->email,
-                'image' => $this->user->image,
             ],
             'state' => [
                 'id' => $this->state->id,
