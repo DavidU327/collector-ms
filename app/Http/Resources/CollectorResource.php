@@ -33,6 +33,9 @@ class CollectorResource extends JsonResource
                     'email' => $this->user->email,
                     'image' => $this->user->image,
                 ],
+                'identification_document' => $this->identification_document,
+                'driving_license_document' => $this->driving_license_document,
+                'deleted_at' => $this->deleted_at,
                 'state' => [
                     'id' => $this->state->id,
                     'name' => $this->state->name,
