@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Rol extends Model
 {
-    const ADMIN = 'ADMIN';
-    const USER = 'USER';
-    const RECYCLER = 'RECYCLER';
+    public const ADMIN = 'Administrador';
+    public const USER = 'Usuario';
+    public const RECYCLER = 'Recolector';
 
     public function users(){
         return $this->hasMany(User::class);
