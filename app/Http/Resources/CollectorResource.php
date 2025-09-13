@@ -33,12 +33,12 @@ class CollectorResource extends JsonResource
                     'email' => $this->user->email,
                     'image' => $this->user->image,
                 ],
+                'state' => [
+                    'id' => $this->state->id,
+                    'name' => $this->state->name,
+                    'color' => $this->state->color,
+                ]
             ],
-            'state' => [
-                'id' => $this->state->id,
-                'name' => $this->state->name,
-                'color' => $this->state->color,
-            ]
         ];
     }
 }
