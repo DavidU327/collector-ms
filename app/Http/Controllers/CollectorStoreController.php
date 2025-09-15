@@ -6,6 +6,7 @@ use App\Models\Rol;
 use App\Models\User;
 use App\Models\State;
 use App\Models\Collector;
+use Illuminate\Support\Str;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -19,19 +20,29 @@ class CollectorStoreController extends Controller
 
     public function saveStorage($image, $route): string
     {
-        $imageName = $image->getClientOriginalName();
-        $nameRoute = 'images/'. $route .'/';
-        $image->storeAs($nameRoute, $imageName, 'public');
-        $url = Storage::disk('public')->url($nameRoute . $imageName);
+        $originalName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+        $extension = $image->getClientOriginalExtension();
+        $safeName = Str::slug($originalName, '_');
+        $imageName = $safeName . '.' . $extension;
+        $nameRoute = 'images/' . $route . '/';
+        Storage::disk('azure')->putFileAs($nameRoute, $image, $imageName);
+        $url = rtrim(config('filesystems.disks.azure.url'), '/') . '/' .
+            config('filesystems.disks.azure.container') . '/' .
+            $nameRoute . $imageName;
         return $url;
     }
 
     public function saveDocumentStorage($image, $route, $document): string
     {
-        $imageName = $image->getClientOriginalName();
+        $originalName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+        $extension = $image->getClientOriginalExtension();
+        $safeName = Str::slug($originalName, '_');
+        $documentName = $safeName . '.' . $extension;
         $nameRoute = 'documents/'. $route. '-' . $document .'/';
-        $image->storeAs($nameRoute, $imageName, 'public');
-        $url = Storage::disk('public')->url($nameRoute . $imageName);
+        Storage::disk('azure')->putFileAs($nameRoute, $image, $documentName);
+        $url = rtrim(config('filesystems.disks.azure.url'), '/') . '/' .
+            config('filesystems.disks.azure.container') . '/' .
+            $nameRoute . $documentName;
         return $url;
     }
 
@@ -107,10 +118,12 @@ class CollectorStoreController extends Controller
             $collector = new Collector();
             $collector->user_id = $user->id;
             if($collectorStoreBackOfficeRequest->identification_document){
-                $this->saveDocumentStorage($collectorStoreBackOfficeRequest->identification_document, 'collectors', 'identification');
+                $identification = $this->saveDocumentStorage($collectorStoreBackOfficeRequest->identification_document, 'collectors', 'identification');
+                $collector->identification_document = $identification;
             }
             if($collectorStoreBackOfficeRequest->driving_license_document){
-                $this->saveDocumentStorage($collectorStoreBackOfficeRequest->driving_license_document, 'collectors', 'driving_license');
+                $driving = $this->saveDocumentStorage($collectorStoreBackOfficeRequest->driving_license_document, 'collectors', 'driving_license');
+                $collector->driving_license_document = $driving;
             }
             if($collectorStoreBackOfficeRequest->identification_document && $collectorStoreBackOfficeRequest->driving_license_document){
                 $collector->state_id = State::where('name', State::ENABLED)->value('id');
