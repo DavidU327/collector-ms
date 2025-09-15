@@ -26,6 +26,15 @@ class CollectorStoreController extends Controller
         return $url;
     }
 
+    public function saveDocumentStorage($image, $route, $document): string
+    {
+        $imageName = $image->getClientOriginalName();
+        $nameRoute = 'documents/'. $route. '-' . $document .'/';
+        $image->storeAs($nameRoute, $imageName, 'public');
+        $url = Storage::disk('public')->url($nameRoute . $imageName);
+        return $url;
+    }
+
     public function createUser($request) : User
     {
         $user = New User();
@@ -97,7 +106,17 @@ class CollectorStoreController extends Controller
             $user = $this->createUserBackOffice($collectorStoreBackOfficeRequest);
             $collector = new Collector();
             $collector->user_id = $user->id;
-            $collector->state_id = State::where('name', State::ENABLED)->value('id');
+            if($collectorStoreBackOfficeRequest->identification_document){
+                $this->saveDocumentStorage($collectorStoreBackOfficeRequest->identification_document, 'collectors', 'identification');
+            }
+            if($collectorStoreBackOfficeRequest->driving_license_document){
+                $this->saveDocumentStorage($collectorStoreBackOfficeRequest->driving_license_document, 'collectors', 'driving_license');
+            }
+            if($collectorStoreBackOfficeRequest->identification_document && $collectorStoreBackOfficeRequest->driving_license_document){
+                $collector->state_id = State::where('name', State::ENABLED)->value('id');
+            }else{
+                $collector->state_id = State::where('name', State::PENDING_USER)->value('id');
+            }
             $collector->save();
             DB::commit();
             $collectorResource = CollectorResource::make($collector);

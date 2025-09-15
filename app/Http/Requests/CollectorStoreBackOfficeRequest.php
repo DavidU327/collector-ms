@@ -29,6 +29,8 @@ class CollectorStoreBackOfficeRequest extends FormRequest
             'type_identification' => 'required|numeric',
             'email' => 'required|string|unique:users,email',
             'images.*' => 'required|min:1',
+            'identification_document.*' => 'nullable|file|mimes:pdf|max:2048',
+            'driving_license_document.*' => 'nullable|file|mimes:pdf|max:2048',
         ];
     }
 }
