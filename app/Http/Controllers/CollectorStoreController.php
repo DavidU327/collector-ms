@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Resources\CollectorResource;
 use App\Http\Requests\CollectorStoreRequest;
-use App\Http\Requests\collectorStoreBackOfficeRequest;
+use App\Http\Requests\CollectorStoreBackOfficeRequest;
 
 class CollectorStoreController extends Controller
 {
