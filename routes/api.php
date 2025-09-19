@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['auth.jwt', 'role:'.Rol::ADMIN])->group(function () {
     Route::get('collectors', '\App\Http\Controllers\CollectorIndexController@index')->name('collector.index'); //Mostrar recolector
     Route::post('collector-backoffice', '\App\Http\Controllers\CollectorStoreController@createBackOffice')->name('collector.createBackOffice'); //Crear recolector desde el backoffice
+    Route::post('upload-document/{collector}', '\App\Http\Controllers\CollectorUploadDocumentController@uploadDocument')->name('collector.uploadDocument'); //Subir documento
 });
 
 Route::post('collector', '\App\Http\Controllers\CollectorStoreController@create')->name('collector.create'); //Crear recolector desde la app

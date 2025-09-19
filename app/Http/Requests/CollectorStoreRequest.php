@@ -30,8 +30,8 @@ class CollectorStoreRequest extends FormRequest
             'email' => 'required|string|unique:users,email',
             'password' => 'required|string',
             'images.*' => 'required|min:1',
-            'identification_document.*' => 'nullable|file|mimes:pdf|max:2048',
-            'driving_license_document.*' => 'nullable|file|mimes:pdf|max:2048',
+            'identification_document.*' => 'required|min:1|file|mimes:pdf|max:2048',
+            'driving_license_document.*' => 'required|min:1|file|mimes:pdf|max:2048',
         ];
     }
 }
