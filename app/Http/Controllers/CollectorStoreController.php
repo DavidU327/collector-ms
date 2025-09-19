@@ -56,7 +56,7 @@ class CollectorStoreController extends Controller
         $user->email = $request->email;
         $user->password = Hash::make($request->password);;
         $image = $this->saveStorage($request->images, 'collectors');
-        $user->state_id = State::where('name', State::PENDING_USER)->value('id');
+        $user->state_id = State::where('name', State::ENABLED)->value('id');
         $user->rol_id = Rol::where('name', Rol::RECYCLER)->value('id');
         $user->image = $image;
         $user->save();
@@ -71,7 +71,7 @@ class CollectorStoreController extends Controller
             $user = $this->createUser($collectorStoreRequest);
             $collector = new Collector();
             $collector->user_id = $user->id;
-            $collector->state_id = State::where('name', State::ENABLED)->value('id');
+            $collector->state_id = State::where('name', State::PENDING_USER)->value('id');
             $identification = $this->saveDocumentStorage($collectorStoreRequest->identification_document, 'collectors', 'identification');
             $collector->identification_document = $identification;
             $driving = $this->saveDocumentStorage($collectorStoreRequest->driving_license_document, 'collectors', 'driving_license');
