@@ -138,7 +138,7 @@ class CollectorStoreController extends Controller
             DB::commit();
             $collectorResource = CollectorResource::make($collector);
             $data = [
-                'message' => 'Recolector creado correctamente',
+                'message' => 'Se ha creado el recolector correctamente',
                 'user' => $collectorResource,
                 'code' => 200,
             ];
