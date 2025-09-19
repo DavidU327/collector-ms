@@ -72,6 +72,10 @@ class CollectorStoreController extends Controller
             $collector = new Collector();
             $collector->user_id = $user->id;
             $collector->state_id = State::where('name', State::ENABLED)->value('id');
+            $identification = $this->saveDocumentStorage($collectorStoreRequest->identification_document, 'collectors', 'identification');
+            $collector->identification_document = $identification;
+            $driving = $this->saveDocumentStorage($collectorStoreRequest->driving_license_document, 'collectors', 'driving_license');
+            $collector->driving_license_document = $driving;
             $collector->save();
             DB::commit();
             $collectorResource = CollectorResource::make($collector);
