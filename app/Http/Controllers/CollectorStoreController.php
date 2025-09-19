@@ -56,7 +56,7 @@ class CollectorStoreController extends Controller
         $user->email = $request->email;
         $user->password = Hash::make($request->password);;
         $image = $this->saveStorage($request->images, 'collectors');
-        $user->state_id = State::where('name', State::ENABLED)->value('id');
+        $user->state_id = State::where('name', State::PENDING_USER)->value('id');
         $user->rol_id = Rol::where('name', Rol::RECYCLER)->value('id');
         $user->image = $image;
         $user->save();
