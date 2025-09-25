@@ -9,12 +9,11 @@ Route::middleware(['auth.jwt', 'role:'.Rol::ADMIN])->group(function () {
     Route::post('upload-document/{collector}', '\App\Http\Controllers\CollectorUploadDocumentController@uploadDocument')->name('collector.uploadDocument'); //Subir documento
     Route::get('states_collector', '\App\Http\Controllers\StateCollectorIndexController@index')->name('index.state'); //Ver estados para el backoffice
     Route::get('change_state_collector/{state}/{collector}', '\App\Http\Controllers\ChangeStateCollectorIndexController@changeState')->name('change.state'); //Cambiar estado en el backoffice
+    Route::get('change_state/{collector}', '\App\Http\Controllers\CollectorChangeStateController@changeState')->name('collector.changeState'); //Cambiar estado de habilitado e inhabilitado
 });
 
 Route::post('collector', '\App\Http\Controllers\CollectorStoreController@create')->name('collector.create'); //Crear recolector desde la app
-
 Route::middleware('auth.jwt')->group(function () {
     Route::post('search', '\App\Http\Controllers\ControllerSearchController@search')->name('collector.search'); //Buscar recolector
-    Route::get('changeState/{collector}', '\App\Http\Controllers\CollectorChangeStateController@changeState')->name('collector.changeState'); //Cambiar estado
     Route::delete('deleteCollector/{collector}', '\App\Http\Controllers\CollectorDeleteController@delete')->name('user.delete'); //Eliminar usuario
 });
