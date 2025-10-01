@@ -11,11 +11,11 @@ Route::middleware(['auth.jwt', 'role:'.Rol::ADMIN])->group(function () {
     Route::get('change_state_collector/{state}/{collector}', '\App\Http\Controllers\ChangeStateCollectorIndexController@changeState')->name('change.state'); //Cambiar estado en el backoffice
     Route::get('change_state/{collector}', '\App\Http\Controllers\CollectorChangeStateController@changeState')->name('collector.changeState'); //Cambiar estado de habilitado e inhabilitado
     Route::patch('collector/{collector}', '\App\Http\Controllers\CollectorUpdateController@updateBackOffice')->name('collector.update'); //Actualizar recollector
+    Route::post('search', '\App\Http\Controllers\ControllerSearchController@search')->name('collector.search'); //Buscar recolector
 });
 
 
-
 Route::middleware('auth.jwt')->group(function () {
-    Route::post('search', '\App\Http\Controllers\ControllerSearchController@search')->name('collector.search'); //Buscar recolector
+
     Route::delete('deleteCollector/{collector}', '\App\Http\Controllers\CollectorDeleteController@delete')->name('user.delete'); //Eliminar usuario
 });
