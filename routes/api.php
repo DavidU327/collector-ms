@@ -12,10 +12,6 @@ Route::middleware(['auth.jwt', 'role:'.Rol::ADMIN])->group(function () {
     Route::get('change_state/{collector}', '\App\Http\Controllers\CollectorChangeStateController@changeState')->name('collector.changeState'); //Cambiar estado de habilitado e inhabilitado
     Route::patch('collector/{collector}', '\App\Http\Controllers\CollectorUpdateController@updateBackOffice')->name('collector.update'); //Actualizar recollector
     Route::post('search', '\App\Http\Controllers\ControllerSearchController@search')->name('collector.search'); //Buscar recolector
-});
-
-
-Route::middleware('auth.jwt')->group(function () {
-
     Route::delete('deleteCollector/{collector}', '\App\Http\Controllers\CollectorDeleteController@delete')->name('user.delete'); //Eliminar usuario
 });
+

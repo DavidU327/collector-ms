@@ -9,9 +9,7 @@ class CollectorIndexController extends Controller
 {
     public function index()
     {
-        $collectors = Collector::with(['user' => function ($query) {
-            $query->whereNull('deleted_at');
-        }])
+        $collectors = Collector::whereNull('deleted_at')
             ->orderBy('id', 'DESC')
             ->paginate(10);
         return CollectorResource::collection($collectors);
