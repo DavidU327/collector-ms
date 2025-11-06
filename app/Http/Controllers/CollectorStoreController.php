@@ -52,7 +52,7 @@ class CollectorStoreController extends Controller
         $user->identification = $request->identification;
         $user->type_identification_id = $request->type_identification;
         $user->email = $request->email;
-        $user->password = 'change';
+        $user->password = 'RECYCLEUD2026';
         $image = $this->saveStorage($request->images, 'collectors');
         $user->state_id = State::where('name', State::ENABLED)->value('id');
         $user->rol_id = Rol::where('name', Rol::RECYCLER)->value('id');

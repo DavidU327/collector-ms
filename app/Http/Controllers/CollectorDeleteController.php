@@ -14,7 +14,7 @@ class CollectorDeleteController extends Controller
     public function delete(Collector $collector)
     {
         $collector->deleted_at = Carbon::now()->format('Y-m-d');
-        $state = State::where('name', State::DISABLED)->first();
+        $state = State::where('name', State::DELETE_USER)->first();
         $collector->state_id = $state->id;
         if ($collector->identification_document !== null){
             $parsedUrl = parse_url($collector->identification_document, PHP_URL_PATH);
