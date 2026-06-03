@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\CollectorResource;
 use App\Http\Resources\CollectorDashboardResource;
+use App\Http\Resources\CollectorOrderResource;
 use App\Models\Collector;
 
 class CollectorIndexController extends Controller
@@ -23,5 +24,10 @@ class CollectorIndexController extends Controller
             ->orderBy('id', 'DESC')
             ->get();
         return CollectorDashboardResource::collection($collectors);
+    }
+
+    public function show(Collector $collector)
+    {
+        return new CollectorOrderResource($collector);
     }
 }
