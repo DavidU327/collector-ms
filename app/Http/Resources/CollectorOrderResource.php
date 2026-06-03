@@ -17,13 +17,11 @@ CollectorOrderResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'user' => [
-                'id' => $this->user->id,
-                'name' => $this->user->name,
-                'phone' => $this->user->phone,
-                'email' => $this->user->email,
-                'image' => $this->user->image,
-            ],
+            'user_id' => $this->user->id,
+            'name' => $this->user->name,
+            'phone' => $this->user->phone,
+            'email' => $this->user->email,
+            'image' => $this->user->image,
         ];
     }
 }
