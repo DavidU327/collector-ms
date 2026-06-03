@@ -16,15 +16,13 @@ CollectorOrderResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'collector' => [
-                'id' => $this->id,
-                'user' => [
-                    'id' => $this->user->id,
-                    'name' => $this->user->name,
-                    'phone' => $this->user->phone,
-                    'email' => $this->user->email,
-                    'image' => $this->user->image,
-                ],
+            'id' => $this->id,
+            'user' => [
+                'id' => $this->user->id,
+                'name' => $this->user->name,
+                'phone' => $this->user->phone,
+                'email' => $this->user->email,
+                'image' => $this->user->image,
             ],
         ];
     }
