@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 
 class Collector extends Model
@@ -20,14 +22,28 @@ class Collector extends Model
         ];
     }
 
-    public function state()
+    public function state(): BelongsTo
     {
         return $this->belongsTo(State::class);
     }
 
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
+    public function currentLocation()
+    {
+        return $this->hasOne(CollectorLocation::class)->latestOfMany();
+    }
+
+    public function locations(): HasMany
+    {
+        return $this->hasMany(CollectorLocation::class);
+    }
+
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class);
+    }
 }
