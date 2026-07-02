@@ -17,12 +17,21 @@ class CollectorChangeStateController extends Controller
     }
 
     public function changeState (Collector $collector) {
+
         $state = $this->getState($collector->state_id);
         $collector->state_id = $state;
         $collector->save();
+        $infoState = State::find($state);
         $data = [
-            'message' => 'Recolector actualizado',
-            'order' => CollectorResource::make($collector),
+            'message' => 'Cambio de estado correctamente',
+            'data' => [
+                'id' => $collector->id,
+                'state' => [
+                    'id' => $infoState->id,
+                    'name' => $infoState->name,
+                    'color' => $infoState->color,
+                ],
+            ],
             'code' => 200,
         ];
         return response()->json($data);
