@@ -3,8 +3,9 @@
 use \App\Models\Rol;
 use Illuminate\Support\Facades\Route;
 
+Route::get('collectors', '\App\Http\Controllers\CollectorIndexController@index')->name('collector.index'); //Mostrar recolector
+
 Route::middleware(['auth.jwt', 'role:'.Rol::ADMIN])->group(function () {
-    Route::get('collectors', '\App\Http\Controllers\CollectorIndexController@index')->name('collector.index'); //Mostrar recolector
     Route::get('collectors-dashboard', '\App\Http\Controllers\CollectorIndexController@indexDashboard')->name('collector.indexDashboard'); //Mostrar recolector para dashboard
     Route::post('collector-backoffice', '\App\Http\Controllers\CollectorStoreController@createBackOffice')->name('collector.createBackOffice'); //Crear recolector desde el backoffice
     Route::post('upload-document/{collector}', '\App\Http\Controllers\CollectorUploadDocumentController@uploadDocument')->name('collector.uploadDocument'); //Subir documento
@@ -18,12 +19,6 @@ Route::middleware(['auth.jwt', 'role:'.Rol::ADMIN])->group(function () {
 
 
 Route::middleware('auth.jwt')->group(function () {
-    Route::post('collector', '\App\Http\Controllers\CollectorStoreController@create')->name('collector.create'); //Crear recolector
-    Route::get('collectors', '\App\Http\Controllers\CollectorIndexController@index')->name('collector.index'); //Mostrar recolector
-    Route::post('search', '\App\Http\Controllers\ControllerSearchController@search')->name('collector.search'); //Buscar recolector
-    Route::get('changeState/{collector}', '\App\Http\Controllers\CollectorChangeStateController@changeState')->name('collector.changeState'); //Cambiar estado
-    Route::delete('deleteCollector/{collector}', '\App\Http\Controllers\CollectorDeleteController@delete')->name('user.delete'); //Eliminar usuario
-
     // HU-18: Tracking del Recolector (Usuario)
     Route::get('my-collector-location', '\App\Http\Controllers\UserOrderTrackingController@getMyCollectorLocation')->name('user.collector.location'); // Ver ubicación del recolector asignado
     Route::get('my-active-orders', '\App\Http\Controllers\UserOrderTrackingController@getActiveOrders')->name('user.active.orders'); // Ver todas las órdenes activas
