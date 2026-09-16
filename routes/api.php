@@ -3,10 +3,9 @@
 use \App\Models\Rol;
 use Illuminate\Support\Facades\Route;
 
-Route::get('collectors', '\App\Http\Controllers\CollectorIndexController@index')->name('collector.index'); //Mostrar recolector
-
 Route::middleware(['auth.jwt', 'role:'.Rol::ADMIN])->group(function () {
-    Route::get('collectors-dashboard', '\App\Http\Controllers\CollectorIndexController@indexDashboard')->name('collector.indexDashboard'); //Mostrar recolector para dashboard
+    Route::get('collectors', '\App\Http\Controllers\CollectorIndexController@index')->name('collector.index'); //Mostrar recolector
+    Route::get('collectors-dashboard', '\App\Http\Controllers\CollectorIndexController@indexDashboard')->name('collector.indexDashboard'); //Mostrar recolector para asignar orden
     Route::post('collector-backoffice', '\App\Http\Controllers\CollectorStoreController@createBackOffice')->name('collector.createBackOffice'); //Crear recolector desde el backoffice
     Route::post('upload-document/{collector}', '\App\Http\Controllers\CollectorUploadDocumentController@uploadDocument')->name('collector.uploadDocument'); //Subir documento
     Route::get('states_collector', '\App\Http\Controllers\StateCollectorIndexController@index')->name('index.state'); //Ver estados para el backoffice
@@ -15,6 +14,7 @@ Route::middleware(['auth.jwt', 'role:'.Rol::ADMIN])->group(function () {
     Route::patch('collector/{collector}', '\App\Http\Controllers\CollectorUpdateController@updateBackOffice')->name('collector.update'); //Actualizar recollector
     Route::post('search', '\App\Http\Controllers\ControllerSearchController@search')->name('collector.search'); //Buscar recolector
     Route::delete('deleteCollector/{collector}', '\App\Http\Controllers\CollectorDeleteController@delete')->name('collector.delete'); //Eliminar usuario
+    Route::get('all_collectors', '\App\Http\Controllers\DashboardsController@allCollectors')->name('dashboardCollector.index'); //Dashboard total recolector
 });
 
 
