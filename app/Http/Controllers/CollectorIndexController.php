@@ -6,6 +6,7 @@ use App\Http\Resources\CollectorResource;
 use App\Http\Resources\CollectorDashboardResource;
 use App\Http\Resources\CollectorOrderResource;
 use App\Models\Collector;
+use Illuminate\Http\Request;
 
 class CollectorIndexController extends Controller
 {
@@ -29,5 +30,19 @@ class CollectorIndexController extends Controller
     public function show(Collector $collector)
     {
         return new CollectorOrderResource($collector);
+    }
+
+    public function indexIdUsers(Request $request)
+    {
+        $ids = $request->input('ids', []);
+
+        $userIds = Collector::whereIn('id', $ids)
+            ->whereNull('deleted_at')
+            ->pluck('user_id')
+            ->toArray();
+
+        return response()->json([
+            'data' => $userIds,
+        ]);
     }
 }

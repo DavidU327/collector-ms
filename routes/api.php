@@ -15,6 +15,7 @@ Route::middleware(['auth.jwt', 'role:'.Rol::ADMIN])->group(function () {
     Route::post('search', '\App\Http\Controllers\ControllerSearchController@search')->name('collector.search'); //Buscar recolector
     Route::delete('deleteCollector/{collector}', '\App\Http\Controllers\CollectorDeleteController@delete')->name('collector.delete'); //Eliminar usuario
     Route::get('all_collectors', '\App\Http\Controllers\DashboardsController@allCollectors')->name('dashboardCollector.index'); //Dashboard total recolector
+    Route::post('users_by_id', '\App\Http\Controllers\CollectorIndexController@indexIdUsers')->name('dashboardIdUsers.index'); //Ids de los usuarios
 });
 
 
