@@ -20,15 +20,11 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Configura directorio de Laravel
 WORKDIR /var/www/html
 
-# Copia primero los manifests para instalar con lock file reproducible
-COPY composer.json composer.lock* ./
-RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
-
-# Copia el resto de la app
+# Copia archivos de la app
 COPY . .
 
-# Regenera autoload y deja el proyecto listo para Laravel
-RUN composer dump-autoload --optimize --no-dev
+# Instala dependencias de PHP
+RUN composer install --no-dev --optimize-autoloader
 
 # Copia configuración personalizada de Apache
 COPY ./docker/apache/vhost.conf /etc/apache2/sites-available/000-default.conf
