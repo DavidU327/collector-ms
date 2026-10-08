@@ -1,0 +1,34 @@
+{
+  "backendStories": [
+    {
+      "id": "hu4-preregistro-recolector",
+      "title": "HU-4 Preregistro recolector",
+      "filter": "CollectorStoreControllerTest|CollectorUploadDocumentControllerTest",
+      "enabled": true
+    },
+    {
+      "id": "hu7-editar-recolector",
+      "title": "HU-7 Editar recolector",
+      "filter": "CollectorUpdateControllerTest",
+      "enabled": true
+    },
+    {
+      "id": "hu7-bloquear-recolector",
+      "title": "HU-7 Bloquear recolector",
+      "filter": "CollectorChangeStateControllerTest|ChangeStateCollectorIndexControllerTest",
+      "enabled": true
+    },
+    {
+      "id": "hu7-eliminar-recolector",
+      "title": "HU-7 Eliminar recolector",
+      "filter": "CollectorDeleteControllerTest",
+      "enabled": true
+    },
+    {
+      "id": "general-smoke",
+      "title": "General Smoke",
+      "filter": "ExampleTest",
+      "enabled": true
+    }
+  ]
+}

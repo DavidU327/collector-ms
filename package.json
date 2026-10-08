@@ -3,7 +3,8 @@
     "type": "module",
     "scripts": {
         "build": "vite build",
-        "dev": "vite"
+        "dev": "vite",
+        "test:stories": "php scripts/run-story-tests.php"
     },
     "devDependencies": {
         "autoprefixer": "^10.4.20",
