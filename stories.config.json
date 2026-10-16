@@ -4,30 +4,42 @@
       "id": "hu4-preregistro-recolector",
       "title": "HU-4 Preregistro recolector",
       "filter": "CollectorStoreControllerTest|CollectorUploadDocumentControllerTest",
+      "sprint": 1,
       "enabled": true
     },
     {
       "id": "hu7-editar-recolector",
       "title": "HU-7 Editar recolector",
       "filter": "CollectorUpdateControllerTest",
+      "sprint": 1,
       "enabled": true
     },
     {
       "id": "hu7-bloquear-recolector",
       "title": "HU-7 Bloquear recolector",
       "filter": "CollectorChangeStateControllerTest|ChangeStateCollectorIndexControllerTest",
+      "sprint": 1,
       "enabled": true
     },
     {
       "id": "hu7-eliminar-recolector",
       "title": "HU-7 Eliminar recolector",
       "filter": "CollectorDeleteControllerTest",
+      "sprint": 1,
+      "enabled": true
+    },
+    {
+      "id": "hu11-configuracion-servicio-correo",
+      "title": "HU-11 Configuración de servicio de correo",
+      "filter": "MailConfigurationTest",
+      "sprint": 2,
       "enabled": true
     },
     {
       "id": "general-smoke",
       "title": "General Smoke",
       "filter": "ExampleTest",
+      "sprint": 1,
       "enabled": true
     }
   ]
