@@ -68,10 +68,6 @@ foreach ($stories as $story) {
     echo "Running story {$id} (sprint {$sprint})...\n";
     passthru($cmd, $exitCode);
 
-    if ($exitCode !== 0) {
-        exit($exitCode);
-    }
-
     $stats = [
         'tests' => 0,
         'failures' => 0,

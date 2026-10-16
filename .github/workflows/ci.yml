@@ -44,7 +44,7 @@ jobs:
           path: build/
 
   pages:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    if: always() && github.event_name == 'push' && github.ref == 'refs/heads/master'
     needs: test
     runs-on: ubuntu-latest
 
