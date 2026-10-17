@@ -69,6 +69,10 @@ class CollectorUpdateControllerTest extends TestCase
 
     public function test_update_backoffice_can_update_documents(): void
     {
+        Storage::disk('azure')->put('images/collectors/old.png', 'old-image');
+        Storage::disk('azure')->put('documents/collectors-identification/old-id.pdf', 'old-id');
+        Storage::disk('azure')->put('documents/collectors-driving_license/old-lic.pdf', 'old-lic');
+
         $user = new User();
         $user->forceFill([
             'name' => 'Docs Collector',
@@ -78,6 +82,7 @@ class CollectorUpdateControllerTest extends TestCase
             'rol_id' => 3,
             'email' => 'docs.collector@example.com',
             'password' => bcrypt('secret123'),
+            'image' => 'https://example.test/container/images/collectors/old.png',
             'state_id' => 1,
         ]);
         $user->save();
@@ -85,11 +90,14 @@ class CollectorUpdateControllerTest extends TestCase
         $collector = new Collector();
         $collector->forceFill([
             'user_id' => $user->id,
+            'identification_document' => 'https://example.test/container/documents/collectors-identification/old-id.pdf',
+            'driving_license_document' => 'https://example.test/container/documents/collectors-driving_license/old-lic.pdf',
             'state_id' => 3,
         ]);
         $collector->save();
 
         $response = $this->patch("/api/collector/{$collector->id}", [
+            'images' => UploadedFile::fake()->image('new-avatar.png'),
             'identification_document' => UploadedFile::fake()->create('new-id.pdf', 20, 'application/pdf'),
             'driving_license_document' => UploadedFile::fake()->create('new-license.pdf', 20, 'application/pdf'),
         ]);
@@ -97,6 +105,8 @@ class CollectorUpdateControllerTest extends TestCase
         $response->assertOk();
 
         $collector->refresh();
+        $user->refresh();
+        $this->assertNotNull($user->image);
         $this->assertNotNull($collector->identification_document);
         $this->assertNotNull($collector->driving_license_document);
     }
